@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Coffee, Plus, Instagram, ShoppingBag, Trash2, Minus, Gift } from "lucide-react";
-import heroCup from "@/assets/cupwink-hero.jpg.asset.json";
-import dripLogo from "@/assets/cupwink-logo.jpg.asset.json";
+import heroCup from "@/assets/julith/flat-white.jpg.asset.json";
+import dripLogo from "@/assets/julith/julith-logo.jpg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
@@ -88,8 +88,8 @@ const Index = () => {
   return (
     <Drawer open={openCart} onOpenChange={setOpenCart}>
       <Helmet>
-        <title>CupWink كوب ونك — قهوتك كما يجب أن تكون</title>
-        <meta name="description" content="CupWink (كوب ونك) — قهوة مختصة ومشروبات وحلويات بطعم مميز. اطلع على المنيو والأسعار بالريال السعودي." />
+        <title>جوليث Julith — في جوليث تُنسج أحلامنا بالقهوة</title>
+        <meta name="description" content="جوليث كافيه (Julith) — قهوة مختصة، مشروبات باردة وحلى كرانجي. اطلع على المنيو والأسعار بالريال السعودي." />
         <link rel="canonical" href="/" />
       </Helmet>
       <div className="min-h-screen text-foreground overflow-x-hidden">
@@ -97,8 +97,9 @@ const Index = () => {
         <header className="absolute top-0 inset-x-0 z-30">
           <div className="container flex items-center justify-between py-5">
             <a href="#" className="flex items-center gap-2">
-              <span className="font-latin text-2xl font-bold text-olive">CupWink</span>
-              <span className="text-base font-bold text-olive/80">كوب ونك</span>
+              <img src={dripLogo.url} alt="جوليث Julith" className="w-10 h-10 rounded-full object-cover" />
+              <span className="font-latin text-2xl font-bold text-olive">Julith</span>
+              <span className="text-base font-bold text-olive/80">جوليث</span>
             </a>
             <a href="#menu" className="text-sm font-medium text-foreground/70 hover:text-olive transition-colors">
               المنيو
@@ -125,9 +126,9 @@ const Index = () => {
         {/* HERO */}
         <section className="relative min-h-[100svh] flex items-center pt-24 pb-16 overflow-hidden">
           <div className="absolute inset-0 -z-10">
-            <div className="absolute inset-0 bg-gradient-to-b from-[hsl(150_40%_94%)] via-[hsl(150_35%_92%)] to-[hsl(150_30%_86%)]" />
-            <div className="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-[hsl(158_42%_24%)]/10 blur-3xl" />
-            <div className="absolute -bottom-32 -right-10 w-[480px] h-[480px] rounded-full bg-[hsl(145_45%_50%)]/15 blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[hsl(36_50%_97%)] via-[hsl(34_45%_93%)] to-[hsl(30_40%_87%)]" />
+            <div className="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-[hsl(22_45%_28%)]/10 blur-3xl" />
+            <div className="absolute -bottom-32 -right-10 w-[480px] h-[480px] rounded-full bg-[hsl(28_55%_55%)]/15 blur-3xl" />
           </div>
 
           <div className="container grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -137,10 +138,10 @@ const Index = () => {
               </p>
               <h1 className="reveal">
                 <span className="block font-latin text-6xl md:text-7xl lg:text-8xl font-extrabold text-olive leading-none">
-                  CupWink
+                  Julith
                 </span>
                 <span className="block text-3xl md:text-4xl font-extrabold text-foreground/85 mt-3">
-                  كوب ونك
+                  جوليث
                 </span>
                 <span className="sr-only"> — قهوة مختصة وحلويات</span>
               </h1>
@@ -148,11 +149,11 @@ const Index = () => {
                 <span className="w-2 h-2 rounded-full bg-caramel" />
               </div>
               <p className="text-xl md:text-2xl text-foreground/75 font-bold mt-4 reveal">
-                قهوتك، كما يجب أن تكون
+                في جوليث تُنسج أحلامنا بالقهوة
               </p>
               <p className="text-base md:text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 mt-4 leading-relaxed reveal">
-                جرب السعادة بطعمها الحلو — قهوة مختصة، مشروبات منعشة،
-                وحلويات تجمعك على لحظة مميزة.
+                قهوة مختصة محمّصة بعناية، مشروبات باردة منعشة، وحلى كرانجي
+                بطبقته الذهبية المقرمشة.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start reveal">
                 <a href="https://rasid.pro/join/dd/register" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: 'var(--gradient-caramel)' }}>
@@ -161,17 +162,17 @@ const Index = () => {
                 <a href="#menu" className="btn-primary">
                   تصفّح المنيو
                 </a>
-                <a href="tel:0573881918" className="btn-primary" style={{ background: 'transparent', color: 'hsl(var(--olive))', border: '2px solid hsl(var(--olive))', boxShadow: 'none' }}>
+                <a href="tel:0559170464" className="btn-primary" style={{ background: 'transparent', color: 'hsl(var(--olive))', border: '2px solid hsl(var(--olive))', boxShadow: 'none' }}>
                   اتصل لتجهيز طلبك
                 </a>
               </div>
             </div>
 
             <div className="relative order-1 lg:order-2 reveal">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[hsl(158_42%_24%)]/15 to-transparent rounded-[3rem] blur-2xl" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[hsl(22_45%_28%)]/15 to-transparent rounded-[3rem] blur-2xl" />
               <img
                 src={heroCup.url}
-                alt="كوب CupWink مع نعناع وحبوب قهوة"
+                alt="فلات وايت من جوليث"
                 className="relative w-full max-w-[560px] mx-auto rounded-[2.5rem] shadow-soft object-cover"
               />
             </div>
@@ -210,7 +211,7 @@ const Index = () => {
                             {item.image_url ? (
                               <img
                                 src={item.image_url}
-                                alt={`${item.name} — CupWink`}
+                                alt={`${item.name} — جوليث Julith`}
                                 loading="lazy"
                                 width={768}
                                 height={768}
@@ -257,26 +258,28 @@ const Index = () => {
           <div className="container py-16 text-center">
             <img
               src={dripLogo.url}
-              alt="CupWink كوب ونك"
+              alt="جوليث Julith"
               className="w-28 mx-auto mb-6 rounded-xl bg-white p-2"
             />
-            <p className="font-latin text-3xl text-[hsl(145_45%_70%)] tracking-wider font-extrabold">CupWink</p>
-            <p className="text-xl mt-1 font-bold">كوب ونك</p>
-            <p className="text-[hsl(150_35%_95%)]/75 mt-3">قهوتك، كما يجب أن تكون</p>
-            <p className="text-[hsl(150_35%_95%)]/60 mt-2 text-sm" dir="ltr">📞 0573881918</p>
+            <p className="font-latin text-3xl text-[hsl(28_55%_72%)] tracking-wider font-extrabold">Julith</p>
+            <p className="text-xl mt-1 font-bold">جوليث</p>
+            <p className="text-[hsl(36_50%_97%)]/75 mt-3">في جوليث تُنسج أحلامنا بالقهوة</p>
+            <p className="text-[hsl(36_50%_97%)]/60 mt-2 text-sm" dir="ltr">📞 0559170464</p>
 
             <div className="flex justify-center gap-4 mt-8">
               <a
-                href="#"
+                href="https://www.instagram.com/julith.sa"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="انستقرام"
-                className="w-11 h-11 rounded-full bg-[hsl(150_35%_95%)]/10 hover:bg-[hsl(145_45%_50%)]/30 flex items-center justify-center transition-colors"
+                className="w-11 h-11 rounded-full bg-[hsl(36_50%_97%)]/10 hover:bg-[hsl(28_55%_60%)]/30 flex items-center justify-center transition-colors"
               >
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
 
-            <div className="mt-10 pt-6 border-t border-[hsl(150_35%_95%)]/10 text-sm text-[hsl(150_35%_95%)]/60">
-              © {new Date().getFullYear()} CupWink كوب ونك — جميع الحقوق محفوظة
+            <div className="mt-10 pt-6 border-t border-[hsl(36_50%_97%)]/10 text-sm text-[hsl(36_50%_97%)]/60">
+              © {new Date().getFullYear()} جوليث كافيه Julith — جميع الحقوق محفوظة
             </div>
           </div>
         </footer>
