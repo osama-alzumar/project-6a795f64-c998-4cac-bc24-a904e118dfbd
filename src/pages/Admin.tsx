@@ -19,7 +19,15 @@ type Product = {
   sort_order: number;
   is_available: boolean;
 };
-type Branch = { id: string; name: string; sort_order: number; address?: string | null; maps_url?: string | null };
+type Branch = {
+  id: string;
+  name: string;
+  sort_order: number;
+  address?: string | null;
+  maps_url?: string | null;
+  image_url?: string | null;
+  pattern_url?: string | null;
+};
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -49,6 +57,7 @@ const Admin = () => {
   const [newBranchName, setNewBranchName] = useState("");
   const [newBranchAddress, setNewBranchAddress] = useState("");
   const [newBranchMaps, setNewBranchMaps] = useState("");
+  const [uploadingBranchField, setUploadingBranchField] = useState<string | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -139,9 +148,10 @@ const Admin = () => {
   };
 
   // Products
-  const uploadImage = async (file: File): Promise<string | null> => {
+  const uploadImage = async (file: File, folder = "products"): Promise<string | null> => {
+    if (!userId) return null;
     const ext = file.name.split(".").pop();
-    const path = `${userId}/${Date.now()}.${ext}`;
+    const path = `${userId}/${folder}/${Date.now()}.${ext}`;
     const { error } = await supabase.storage.from("product-images").upload(path, file);
     if (error) {
       toast.error(error.message);
@@ -149,6 +159,26 @@ const Admin = () => {
     }
     const { data } = supabase.storage.from("product-images").getPublicUrl(path);
     return data.publicUrl;
+  };
+
+  const updateBranchVisual = async (
+    branchId: string,
+    field: "image_url" | "pattern_url",
+    file: File,
+  ) => {
+    const uploadKey = `${branchId}-${field}`;
+    setUploadingBranchField(uploadKey);
+    const imageUrl = await uploadImage(file, `branches/${branchId}/${field}`);
+    if (!imageUrl) {
+      setUploadingBranchField(null);
+      return;
+    }
+    const update = field === "image_url" ? { image_url: imageUrl } : { pattern_url: imageUrl };
+    const { error } = await supabase.from("branches").update(update).eq("id", branchId);
+    setUploadingBranchField(null);
+    if (error) return toast.error(error.message);
+    setBranches((prev) => prev.map((branch) => branch.id === branchId ? { ...branch, [field]: imageUrl } : branch));
+    toast.success(field === "image_url" ? "تم حفظ صورة الفرع تلقائيًا" : "تم حفظ نقش الفرع تلقائيًا");
   };
   const updateCategoryImage = async (id: string, file: File | null) => {
     let image_url: string | null = null;
@@ -538,7 +568,7 @@ const Admin = () => {
         {/* Branches */}
         <section className="bg-card border border-border rounded-2xl p-4 sm:p-6 space-y-4">
           <h2 className="font-display text-xl">الفروع</h2>
-          <p className="text-xs text-muted-foreground">حدّث اسم الفرع، عنوانه (الحي/الشارع)، ورابط الخرائط.</p>
+          <p className="text-xs text-muted-foreground">حدّث بيانات الفرع وصورته ونقشه. تُحفظ الصور تلقائيًا فور اختيارها.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 border border-dashed border-border rounded-xl p-3 bg-background">
             <Input
               placeholder="اسم الفرع الجديد"
@@ -579,6 +609,44 @@ const Admin = () => {
           <div className="space-y-4">
             {branches.map((b) => (
               <div key={b.id} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 border border-border rounded-xl p-3 bg-background">
+                <div className="sm:col-span-2 lg:col-span-3 grid grid-cols-2 gap-3">
+                  {([
+                    { field: "image_url" as const, label: "صورة الفرع", value: b.image_url },
+                    { field: "pattern_url" as const, label: "نقش الفرع", value: b.pattern_url },
+                  ]).map(({ field, label, value }) => {
+                    const inputId = `${field}-${b.id}`;
+                    const uploading = uploadingBranchField === `${b.id}-${field}`;
+                    return (
+                      <div key={field} className="overflow-hidden rounded-lg border border-border bg-muted/40">
+                        <div className="aspect-[16/9] flex items-center justify-center overflow-hidden">
+                          {value ? (
+                            <img src={value} alt={`${label} ${b.name}`} className="h-full w-full object-cover" />
+                          ) : (
+                            <ImageIcon className="h-6 w-6 text-muted-foreground" />
+                          )}
+                        </div>
+                        <Label
+                          htmlFor={inputId}
+                          className="flex min-h-10 cursor-pointer items-center justify-center border-t border-border px-2 text-xs font-semibold hover:bg-muted"
+                        >
+                          {uploading ? "جارٍ الرفع…" : value ? `تغيير ${label}` : `رفع ${label}`}
+                        </Label>
+                        <input
+                          id={inputId}
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          disabled={uploading}
+                          onChange={(event) => {
+                            const file = event.target.files?.[0];
+                            if (file) updateBranchVisual(b.id, field, file);
+                            event.currentTarget.value = "";
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
                 <Input
                   placeholder="اسم الفرع"
                   value={b.name}

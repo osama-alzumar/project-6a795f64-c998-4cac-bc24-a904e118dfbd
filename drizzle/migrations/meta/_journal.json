@@ -22,6 +22,13 @@
       "when": 1789707905764,
       "tag": "0002_place_order_rpc",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1789712103154,
+      "tag": "0003_add_branch_visuals",
+      "breakpoints": true
     }
   ]
 }

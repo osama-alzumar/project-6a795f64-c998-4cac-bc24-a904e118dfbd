@@ -19,8 +19,10 @@ export type Database = {
           address: string | null
           created_at: string
           id: string
+          image_url: string | null
           maps_url: string | null
           name: string
+          pattern_url: string | null
           sort_order: number
           updated_at: string
         }
@@ -28,8 +30,10 @@ export type Database = {
           address?: string | null
           created_at?: string
           id?: string
+          image_url?: string | null
           maps_url?: string | null
           name: string
+          pattern_url?: string | null
           sort_order?: number
           updated_at?: string
         }
@@ -37,8 +41,10 @@ export type Database = {
           address?: string | null
           created_at?: string
           id?: string
+          image_url?: string | null
           maps_url?: string | null
           name?: string
+          pattern_url?: string | null
           sort_order?: number
           updated_at?: string
         }
