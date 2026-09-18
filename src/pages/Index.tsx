@@ -86,7 +86,7 @@ const Index = () => {
   const cartTotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
   // رقم واتساب الكاشير — جوليث كافيه
-  const WHATSAPP_NUMBER = "966559170464";
+  const WHATSAPP_NUMBER = "966507074560";
   const orderLines = cart.map((i) => `• ${i.name} ×${i.qty} — ${(i.price * i.qty).toFixed(2)} ر.س`);
   const orderText = [
     "طلب جديد من منيو جوليث:",
