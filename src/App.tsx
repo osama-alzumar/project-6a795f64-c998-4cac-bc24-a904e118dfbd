@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound.tsx";
 import Auth from "./pages/Auth.tsx";
 import Admin from "./pages/Admin.tsx";
 import DevStats from "./pages/DevStats.tsx";
+import Orders from "./pages/Orders.tsx";
+import MobileMenu from "./pages/MobileMenu.tsx";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +23,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/m" element={<MobileMenu />} />
           <Route path="/osama-stats-7549712" element={<DevStats />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
