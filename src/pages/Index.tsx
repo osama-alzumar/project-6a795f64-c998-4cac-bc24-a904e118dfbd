@@ -365,6 +365,22 @@ const Index = () => {
                   </button>
                 </div>
               ))}
+              {branches.length > 0 && (
+                <div className="pt-3">
+                  <label htmlFor="branch" className="text-sm font-bold">اختر الفرع</label>
+                  <select
+                    id="branch"
+                    value={branchId}
+                    onChange={(e) => setBranchId(e.target.value)}
+                    className="mt-1 w-full rounded-xl border bg-background px-3 py-2 text-sm"
+                  >
+                    <option value="">— اختر الفرع —</option>
+                    {branches.map((b) => (
+                      <option key={b.id} value={b.id}>{b.name}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div className="pt-3 border-t flex items-center justify-between">
                 <span className="font-bold">الإجمالي</span>
                 <span className="font-bold text-olive">{cartTotal.toFixed(2)} ر.س</span>
@@ -372,14 +388,15 @@ const Index = () => {
               <a
                 href={whatsappOrderUrl}
                 onClick={handleWhatsAppOrder}
-                className="mt-3 flex items-center justify-center gap-2 w-full rounded-xl py-3 font-bold text-[hsl(36_50%_97%)] transition-colors"
+                aria-disabled={sending}
+                className={`mt-3 flex items-center justify-center gap-2 w-full rounded-xl py-3 font-bold text-[hsl(36_50%_97%)] transition-colors ${sending ? "opacity-60 pointer-events-none" : ""}`}
                 style={{ background: "#25D366" }}
               >
                 <MessageCircle className="w-5 h-5" />
-                أرسل الطلب عبر واتساب
+                {sending ? "جارٍ الإرسال…" : "أرسل الطلب عبر واتساب"}
               </a>
               <p className="text-center text-xs text-muted-foreground pt-2">
-                يُرسل طلبك مباشرة إلى واتساب الكاشير
+                يُسجَّل الطلب لدى الكاشير ويُفتح على واتساب مباشرة
               </p>
             </div>
           )}
