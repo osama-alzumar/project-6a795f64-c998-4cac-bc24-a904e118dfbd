@@ -340,8 +340,18 @@ const Index = () => {
                 <span className="font-bold">الإجمالي</span>
                 <span className="font-bold text-olive">{cartTotal.toFixed(2)} ر.س</span>
               </div>
+              <a
+                href={whatsappOrderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 flex items-center justify-center gap-2 w-full rounded-xl py-3 font-bold text-[hsl(36_50%_97%)] transition-colors"
+                style={{ background: "#25D366" }}
+              >
+                <MessageCircle className="w-5 h-5" />
+                أرسل الطلب عبر واتساب
+              </a>
               <p className="text-center text-xs text-muted-foreground pt-2">
-                السلة للتجميع فقط — اطلب من الكاشير
+                يُرسل طلبك مباشرة إلى واتساب الكاشير
               </p>
             </div>
           )}
