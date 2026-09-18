@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Plus, Instagram, ShoppingBag, Trash2, Minus, Gift } from "lucide-react";
 import heroCup from "@/assets/julith/flat-white.jpg.asset.json";
 import dripLogo from "@/assets/julith/julith-logo.jpg.asset.json";
-import julithPattern from "@/assets/julith/julith-pattern-dark.png.asset.json";
+import julithPattern from "@/assets/julith/julith-pattern-background.jpeg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
@@ -96,7 +96,7 @@ const Index = () => {
       <div className="min-h-screen text-foreground overflow-x-hidden">
         <div
           aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-[5] bg-repeat bg-[length:440px_440px] opacity-[0.45]"
+          className="pointer-events-none fixed inset-0 z-[5] bg-repeat bg-[length:440px_440px] opacity-[0.045] mix-blend-multiply"
           style={{ backgroundImage: `url(${julithPattern.url})` }}
         />
         {/* NAV */}
