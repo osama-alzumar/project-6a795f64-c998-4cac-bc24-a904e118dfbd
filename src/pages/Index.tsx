@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Coffee, Plus, Instagram, ShoppingBag, Trash2, Minus, Gift } from "lucide-react";
+import { Plus, Instagram, ShoppingBag, Trash2, Minus, Gift } from "lucide-react";
 import heroCup from "@/assets/julith/flat-white.jpg.asset.json";
 import dripLogo from "@/assets/julith/julith-logo.jpg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
@@ -206,9 +206,9 @@ const Index = () => {
 
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                       {items.map((item) => (
-                        <article key={item.id} className="product-card reveal">
-                          <div className="relative aspect-square bg-muted overflow-hidden">
-                            {item.image_url ? (
+                        <article key={item.id} className={`product-card reveal ${item.image_url ? "" : "min-h-44 justify-end"}`}>
+                           {item.image_url && (
+                           <div className="relative aspect-square bg-muted overflow-hidden">
                               <img
                                 src={item.image_url}
                                 alt={`${item.name} — جوليث Julith`}
@@ -217,12 +217,8 @@ const Index = () => {
                                 height={768}
                                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                               />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <Coffee className="w-10 h-10 text-olive/40" />
-                              </div>
-                            )}
                           </div>
+                           )}
                           <div className="p-3 sm:p-4 flex flex-col gap-2 sm:gap-3 flex-1">
                             <h4 className="font-bold text-sm sm:text-base md:text-lg text-foreground line-clamp-1 leading-tight">
                               {item.name}
@@ -296,15 +292,11 @@ const Index = () => {
             <div className="space-y-3">
               {cart.map((item) => (
                 <div key={item.id} className="flex items-center gap-3 p-3 rounded-xl bg-muted/60">
-                  <div className="w-14 h-14 rounded-lg bg-muted overflow-hidden shrink-0">
-                    {item.image_url ? (
+                   {item.image_url && (
+                   <div className="w-14 h-14 rounded-lg bg-muted overflow-hidden shrink-0">
                       <img src={item.image_url} alt={item.name} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Coffee className="w-5 h-5 text-olive/40" />
-                      </div>
-                    )}
                   </div>
+                   )}
                   <div className="flex-1 min-w-0">
                     <p className="font-bold text-sm truncate">{item.name}</p>
                     <p className="text-xs text-muted-foreground">{Number(item.price).toFixed(2)} ر.س</p>
