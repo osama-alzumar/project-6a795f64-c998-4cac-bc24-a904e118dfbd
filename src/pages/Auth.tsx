@@ -77,12 +77,12 @@ const Auth = () => {
   return (
     <>
       <Helmet>
-        <title>تسجيل الدخول — Drip Story</title>
-        <meta name="description" content="سجّل دخولك إلى لوحة Drip Story لإدارة المنيو والفروع." />
-        <link rel="canonical" href="https://voute-classic-oasis.lovable.app/auth" />
-        <meta property="og:title" content="تسجيل الدخول — Drip Story" />
-        <meta property="og:description" content="سجّل دخولك إلى لوحة Drip Story لإدارة المنيو والفروع." />
-        <meta property="og:url" content="https://voute-classic-oasis.lovable.app/auth" />
+        <title>تسجيل الدخول — جوليث Julith</title>
+        <meta name="description" content="سجّل دخولك إلى لوحة جوليث Julith لإدارة المنيو والفروع." />
+        <link rel="canonical" href="/auth" />
+        <meta property="og:title" content="تسجيل الدخول — جوليث Julith" />
+        <meta property="og:description" content="سجّل دخولك إلى لوحة جوليث Julith لإدارة المنيو والفروع." />
+        <meta property="og:url" content="/auth" />
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
