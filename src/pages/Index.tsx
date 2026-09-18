@@ -293,7 +293,7 @@ const Index = () => {
             <p className="font-latin text-3xl text-[hsl(28_55%_72%)] tracking-wider font-extrabold">Julith</p>
             <p className="text-xl mt-1 font-bold">جوليث</p>
             <p className="text-[hsl(36_50%_97%)]/75 mt-3">في جوليث تُنسج أحلامنا بالقهوة</p>
-            <p className="text-[hsl(36_50%_97%)]/60 mt-2 text-sm" dir="ltr">📞 0559170464</p>
+            <p className="text-[hsl(36_50%_97%)]/60 mt-2 text-sm">للاقتراحات والشكاوي: <span dir="ltr">0559170464</span></p>
 
             <div className="flex justify-center gap-4 mt-8">
               <a
