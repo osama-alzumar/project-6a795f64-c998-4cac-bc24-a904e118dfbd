@@ -2,54 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Cormorant+Garamond:wght@500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
 
 @layer base {
   :root {
-    /* CupWink — Deep Forest Green & Mint Cream */
-    --background: 150 35% 95%;
-    --foreground: 158 45% 14%;
+    /* Julith جوليث — Coffee Brown & Warm Cream */
+    --background: 36 45% 96%;
+    --foreground: 24 30% 14%;
 
     --card: 0 0% 100%;
-    --card-foreground: 158 45% 14%;
+    --card-foreground: 24 30% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 158 45% 14%;
+    --popover-foreground: 24 30% 14%;
 
-    --primary: 158 42% 24%;
-    --primary-foreground: 150 35% 96%;
+    --primary: 22 45% 30%;
+    --primary-foreground: 36 50% 97%;
 
-    --secondary: 158 30% 18%;
-    --secondary-foreground: 150 35% 96%;
+    --secondary: 24 35% 20%;
+    --secondary-foreground: 36 50% 97%;
 
-    --muted: 150 25% 90%;
-    --muted-foreground: 158 20% 35%;
+    --muted: 34 35% 91%;
+    --muted-foreground: 24 15% 38%;
 
-    --accent: 145 40% 55%;
-    --accent-foreground: 158 45% 14%;
+    --accent: 22 55% 42%;
+    --accent-foreground: 36 50% 97%;
 
     --destructive: 0 65% 48%;
-    --destructive-foreground: 150 35% 96%;
+    --destructive-foreground: 36 50% 97%;
 
-    --border: 150 22% 84%;
-    --input: 150 22% 84%;
-    --ring: 158 42% 24%;
+    --border: 32 25% 86%;
+    --input: 32 25% 86%;
+    --ring: 22 45% 30%;
 
     --radius: 1rem;
 
-    --olive: 158 42% 24%;
-    --olive-deep: 158 50% 16%;
-    --caramel: 145 45% 40%;
-    --caramel-soft: 145 45% 70%;
-    --cream: 150 35% 95%;
-    --cream-deep: 150 30% 90%;
-    --coffee: 158 45% 14%;
+    --olive: 22 45% 28%;
+    --olive-deep: 24 40% 18%;
+    --caramel: 22 58% 42%;
+    --caramel-soft: 26 55% 70%;
+    --cream: 36 45% 96%;
+    --cream-deep: 34 40% 91%;
+    --coffee: 24 40% 14%;
 
-    --gradient-warm: linear-gradient(135deg, hsl(150 35% 96%) 0%, hsl(150 30% 88%) 100%);
-    --gradient-olive: linear-gradient(135deg, hsl(158 50% 18%) 0%, hsl(158 38% 30%) 100%);
-    --gradient-caramel: linear-gradient(135deg, hsl(145 45% 38%) 0%, hsl(145 50% 60%) 100%);
-    --shadow-soft: 0 12px 40px -16px hsl(158 45% 14% / 0.22);
-    --shadow-card: 0 6px 24px -10px hsl(158 45% 14% / 0.16);
+    --gradient-warm: linear-gradient(135deg, hsl(36 50% 97%) 0%, hsl(32 40% 89%) 100%);
+    --gradient-olive: linear-gradient(135deg, hsl(24 42% 18%) 0%, hsl(22 45% 32%) 100%);
+    --gradient-caramel: linear-gradient(135deg, hsl(22 58% 38%) 0%, hsl(28 55% 58%) 100%);
+    --shadow-soft: 0 12px 40px -16px hsl(24 40% 14% / 0.22);
+    --shadow-card: 0 6px 24px -10px hsl(24 40% 14% / 0.16);
   }
 }
 
@@ -61,8 +61,8 @@
     font-family: 'Cairo', system-ui, sans-serif;
     direction: rtl;
     background-image:
-      radial-gradient(at 15% 0%, hsl(145 40% 80% / 0.45) 0%, transparent 55%),
-      radial-gradient(at 85% 100%, hsl(158 42% 24% / 0.08) 0%, transparent 55%);
+      radial-gradient(at 15% 0%, hsl(30 55% 88% / 0.55) 0%, transparent 55%),
+      radial-gradient(at 85% 100%, hsl(22 45% 28% / 0.08) 0%, transparent 55%);
     background-attachment: fixed;
   }
   h1, h2, h3, .font-display {
@@ -71,7 +71,7 @@
     letter-spacing: -0.01em;
   }
   .font-latin {
-    font-family: 'Poppins', system-ui, sans-serif;
+    font-family: 'Cormorant Garamond', 'Poppins', serif;
     letter-spacing: 0.01em;
     font-weight: 700;
   }
@@ -99,7 +99,7 @@
   }
   .product-card:hover {
     @apply -translate-y-1;
-    box-shadow: 0 20px 50px -20px hsl(72 25% 22% / 0.3);
+    box-shadow: 0 20px 50px -20px hsl(24 40% 20% / 0.3);
   }
 
   .btn-primary {
