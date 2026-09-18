@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Plus, Instagram, ShoppingBag, Trash2, Minus, Gift } from "lucide-react";
+import { Plus, Instagram, ShoppingBag, Trash2, Minus, Gift, MessageCircle } from "lucide-react";
 import heroCup from "@/assets/julith/flat-white.jpg.asset.json";
 import dripLogo from "@/assets/julith/julith-logo.jpg.asset.json";
 import julithPattern from "@/assets/julith/julith-pattern-background.jpeg.asset.json";
@@ -84,6 +84,18 @@ const Index = () => {
   const decQty = (id: string) => setCart((prev) => prev.map((i) => (i.id === id && i.qty > 1 ? { ...i, qty: i.qty - 1 } : i)).filter((i) => i.qty > 0));
 
   const cartTotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
+
+  // رقم واتساب الكاشير — جوليث كافيه
+  const WHATSAPP_NUMBER = "966559170464";
+  const orderLines = cart.map((i) => `• ${i.name} ×${i.qty} — ${(i.price * i.qty).toFixed(2)} ر.س`);
+  const orderText = [
+    "طلب جديد من منيو جوليث:",
+    "",
+    ...orderLines,
+    "",
+    `الإجمالي: ${cartTotal.toFixed(2)} ر.س`,
+  ].join("\n");
+  const whatsappOrderUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText)}`;
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0);
 
   return (
