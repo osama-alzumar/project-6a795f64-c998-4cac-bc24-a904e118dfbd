@@ -254,7 +254,7 @@ const Index = () => {
         </section>
 
         {/* FOOTER */}
-        <footer className="relative mt-12 bg-[hsl(158_50%_12%)] text-[hsl(150_35%_95%)]">
+        <footer className="relative mt-12 bg-[hsl(24_42%_14%)] text-[hsl(36_50%_97%)]">
           <div className="container py-16 text-center">
             <img
               src={dripLogo.url}

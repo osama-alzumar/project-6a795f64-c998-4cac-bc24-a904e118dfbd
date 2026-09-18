@@ -287,11 +287,11 @@ const Admin = () => {
   return (
     <>
       <Helmet>
-        <title>لوحة التحكم — CupWink</title>
-        <meta name="description" content="لوحة إدارة CupWink لإدارة الفئات والمنتجات والفروع." />
+        <title>لوحة التحكم — جوليث</title>
+        <meta name="description" content="لوحة إدارة جوليث لإدارة الفئات والمنتجات والفروع." />
         <link rel="canonical" href="https://voute-elegant-landing.lovable.app/admin" />
-        <meta property="og:title" content="لوحة التحكم — CupWink" />
-        <meta property="og:description" content="لوحة إدارة CupWink لإدارة الفئات والمنتجات والفروع." />
+        <meta property="og:title" content="لوحة التحكم — جوليث" />
+        <meta property="og:description" content="لوحة إدارة جوليث لإدارة الفئات والمنتجات والفروع." />
         <meta property="og:url" content="https://voute-elegant-landing.lovable.app/admin" />
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
