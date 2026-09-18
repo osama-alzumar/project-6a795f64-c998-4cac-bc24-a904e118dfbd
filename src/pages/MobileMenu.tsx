@@ -131,6 +131,11 @@ const MobileMenu = () => {
         </div>
       </header>
 
+      <h1 className="relative z-10 px-4 pt-4 text-xl font-bold text-foreground">
+        منيو جوليث Julith{branch ? ` — فرع ${branch.name}` : ""}
+      </h1>
+
+
       {branch?.image_url && (
         <div className="relative z-10 mx-4 mt-4 aspect-[16/7] overflow-hidden rounded-lg">
           <img src={branch.image_url} alt={`صورة فرع ${branch.name}`} className="h-full w-full object-cover" />
