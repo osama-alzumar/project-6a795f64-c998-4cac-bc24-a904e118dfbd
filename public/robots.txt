@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://voute-classic-oasis.lovable.app/sitemap.xml
+Sitemap: https://julith.shop/sitemap.xml

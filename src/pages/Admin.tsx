@@ -325,10 +325,10 @@ const Admin = () => {
       <Helmet>
         <title>لوحة التحكم — جوليث</title>
         <meta name="description" content="لوحة إدارة جوليث لإدارة الفئات والمنتجات والفروع." />
-        <link rel="canonical" href="https://voute-elegant-landing.lovable.app/admin" />
+        <link rel="canonical" href="/admin" />
         <meta property="og:title" content="لوحة التحكم — جوليث" />
         <meta property="og:description" content="لوحة إدارة جوليث لإدارة الفئات والمنتجات والفروع." />
-        <meta property="og:url" content="https://voute-elegant-landing.lovable.app/admin" />
+        <meta property="og:url" content="/admin" />
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
     <div className="min-h-screen bg-background py-6 px-3 sm:py-8 sm:px-4">
