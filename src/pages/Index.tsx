@@ -85,31 +85,24 @@ const Index = () => {
 
   const cartTotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-  // رقم واتساب الكاشير — جوليث كافيه
-  const WHATSAPP_NUMBER = "966507074560";
-  const orderLines = cart.map((i) => `• ${i.name} ×${i.qty} — ${(i.price * i.qty).toFixed(2)} ر.س`);
-  const orderText = [
-    "طلب جديد من منيو جوليث:",
-    "",
-    ...orderLines,
-    "",
-    `الإجمالي: ${cartTotal.toFixed(2)} ر.س`,
-  ].join("\n");
-  // الجوال: فتح تطبيق واتساب مباشرة (بدون المرور على api.whatsapp.com)
-  // الكمبيوتر: فتح واتساب ويب مباشرة (بدون التحويلة عبر wa.me)
-  const isMobileDevice = /Android|iPhone|iPad|iPod|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
-  const whatsappOrderUrl = isMobileDevice
-    ? `whatsapp://send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(orderText)}`
-    : `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(orderText)}`;
+  const selectedBranch = branches.find((b) => b.id === branchId) ?? null;
+  const whatsappOrderUrl = whatsappUrl(
+    buildOrderText(cart, cartTotal, { branchName: selectedBranch?.name })
+  );
 
-  const handleWhatsAppOrder = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleWhatsAppOrder = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    if (isMobileDevice) {
-      // فتح تطبيق واتساب مباشرة
-      window.location.href = whatsappOrderUrl;
-    } else {
-      window.open(whatsappOrderUrl, "_blank", "noopener,noreferrer");
-    }
+    if (sending || cart.length === 0) return;
+    setSending(true);
+    const orderNo = await saveOrder({
+      items: cart,
+      total: cartTotal,
+      branchId: selectedBranch?.id ?? null,
+      branchName: selectedBranch?.name ?? null,
+    });
+    if (!orderNo) toast.error("تعذّر حفظ الطلب، سيُرسل عبر واتساب فقط");
+    openWhatsApp(buildOrderText(cart, cartTotal, { orderNo, branchName: selectedBranch?.name }));
+    setSending(false);
   };
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0);
 
