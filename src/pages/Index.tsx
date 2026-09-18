@@ -117,7 +117,7 @@ const Index = () => {
     <Drawer open={openCart} onOpenChange={setOpenCart}>
       <Helmet>
         <title>جوليث Julith — في جوليث تُنسج أحلامنا بالقهوة</title>
-        <meta name="description" content="جوليث كافيه (Julith) — قهوة مختصة، مشروبات باردة وحلى كرانجي. اطلع على المنيو والأسعار بالريال السعودي." />
+        <meta name="description" content="جوليث كافيه (Julith) — قهوة مختصة، مشروبات باردة وحلى كرانشي. اطلع على المنيو والأسعار بالريال السعودي." />
         <link rel="canonical" href="/" />
       </Helmet>
       <div className="min-h-screen text-foreground overflow-x-hidden">
@@ -185,7 +185,7 @@ const Index = () => {
                 في جوليث تُنسج أحلامنا بالقهوة
               </p>
               <p className="text-base md:text-lg text-muted-foreground max-w-md mx-auto lg:mx-0 mt-4 leading-relaxed reveal">
-                قهوة مختصة محمّصة بعناية، مشروبات باردة منعشة، وحلى كرانجي
+                قهوة مختصة محمّصة بعناية، مشروبات باردة منعشة، وحلى كرانشي
                 بطبقته الذهبية المقرمشة.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start reveal">
