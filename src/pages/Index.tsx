@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Plus, Instagram, ShoppingBag, Trash2, Minus, Gift, MessageCircle } from "lucide-react";
-import heroCup from "@/assets/julith/flat-white.jpg.asset.json";
-import dripLogo from "@/assets/julith/julith-logo.jpg.asset.json";
+import brandLogo from "@/assets/julith/julith-logo-mark.jpeg.asset.json";
 import julithPattern from "@/assets/julith/julith-pattern-background.jpeg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -132,7 +131,7 @@ const Index = () => {
         <header className="absolute top-0 inset-x-0 z-30">
           <div className="container flex items-center justify-between py-5">
             <a href="#" className="flex items-center gap-2">
-              <img src={dripLogo.url} alt="جوليث Julith" className="w-10 h-10 rounded-full object-cover" />
+              <img src={brandLogo.url} alt="جوليث Julith" className="w-10 h-10 rounded-full object-cover ring-1 ring-olive/15" />
               <span className="font-latin text-2xl font-bold text-olive">Julith</span>
               <span className="text-base font-bold text-olive/80">جوليث</span>
             </a>
@@ -205,11 +204,13 @@ const Index = () => {
 
             <div className="relative order-1 lg:order-2 reveal">
               <div className="absolute inset-0 bg-gradient-to-tr from-[hsl(22_45%_28%)]/15 to-transparent rounded-[3rem] blur-2xl" />
-              <img
-                src={heroCup.url}
-                alt="فلات وايت من جوليث"
-                className="relative w-full max-w-[560px] mx-auto rounded-[2.5rem] shadow-soft object-cover"
-              />
+              <div className="relative w-full max-w-[520px] mx-auto aspect-square rounded-[2.5rem] shadow-soft overflow-hidden ring-1 ring-olive/10">
+                <img
+                  src={brandLogo.url}
+                  alt="شعار جوليث Julith"
+                  className="w-full h-full object-contain"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -288,7 +289,7 @@ const Index = () => {
         <footer className="relative mt-12 bg-[hsl(24_42%_14%)] text-[hsl(36_50%_97%)]">
           <div className="container py-16 text-center">
             <img
-              src={dripLogo.url}
+              src={brandLogo.url}
               alt="جوليث Julith"
               className="w-28 mx-auto mb-6 rounded-xl bg-white p-2"
             />
