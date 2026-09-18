@@ -96,7 +96,7 @@ const Index = () => {
       <div className="min-h-screen text-foreground overflow-x-hidden">
         <div
           aria-hidden="true"
-          className="pointer-events-none fixed inset-0 z-0 bg-repeat bg-[length:440px_440px] opacity-[0.035] mix-blend-multiply"
+          className="pointer-events-none fixed inset-0 z-[5] bg-repeat bg-[length:440px_440px] opacity-[0.045] mix-blend-multiply"
           style={{ backgroundImage: `url(${julithPattern.url})` }}
         />
         {/* NAV */}
