@@ -74,7 +74,9 @@ const Orders = () => {
       .channel("orders-live")
       .on("postgres_changes", { event: "*", schema: "public", table: "orders" }, () => load())
       .subscribe();
+    const poll = setInterval(() => load(), 30000);
     return () => {
+      clearInterval(poll);
       supabase.removeChannel(channel);
     };
   }, [isAdmin, load]);
@@ -148,6 +150,9 @@ const Orders = () => {
             <Button variant="outline" size="sm" onClick={load}>
               <RefreshCw className="w-4 h-4" /> تحديث
             </Button>
+            <Link to="/sales">
+              <Button variant="ghost" size="sm">المبيعات</Button>
+            </Link>
             <Link to="/admin">
               <Button variant="ghost" size="sm">
                 <ArrowRight className="w-4 h-4" /> الإدارة
