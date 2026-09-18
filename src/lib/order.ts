@@ -13,18 +13,11 @@ export const buildOrderText = (
   total: number,
   opts: { orderNo?: number | null; branchName?: string | null } = {}
 ) => {
+  const head = ["طلب جديد من منيو جوليث:"];
+  if (opts.orderNo) head.push(`رقم الطلب: #${opts.orderNo}`);
+  if (opts.branchName) head.push(`الفرع: ${opts.branchName}`);
   const lines = items.map((i) => `• ${i.name} ×${i.qty} — ${(i.price * i.qty).toFixed(2)} ر.س`);
-  return [
-    "طلب جديد من منيو جوليث:",
-    opts.orderNo ? `رقم الطلب: #${opts.orderNo}` : "",
-    opts.branchName ? `الفرع: ${opts.branchName}` : "",
-    "",
-    ...lines,
-    "",
-    `الإجمالي: ${total.toFixed(2)} ر.س`,
-  ]
-    .filter((l) => l !== "" || true)
-    .join("\n");
+  return [...head, "", ...lines, "", `الإجمالي: ${total.toFixed(2)} ر.س`].join("\n");
 };
 
 export const whatsappUrl = (text: string) =>
