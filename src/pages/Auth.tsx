@@ -35,8 +35,11 @@ const Auth = () => {
   const score = useMemo(() => strengthScore(password), [password]);
   const { text, color } = strengthLabel(score);
 
-  const toEmail = (u: string) =>
-    `${u.trim().toLowerCase().replace(/[^a-z0-9_.-]/g, "")}@voute.local`;
+  const toEmail = (value: string) => {
+    const normalized = value.trim().toLowerCase();
+    if (normalized.includes("@")) return normalized;
+    return `${normalized.replace(/[^a-z0-9_.-]/g, "")}@voute.local`;
+  };
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -49,7 +52,7 @@ const Auth = () => {
     setLoading(true);
     try {
       const email = toEmail(username);
-      if (!email.startsWith("@") === false || email.length < 5) throw new Error("اسم مستخدم غير صالح");
+      if (email.startsWith("@") || email.length < 5) throw new Error("اسم المستخدم أو البريد غير صالح");
       if (mode === "signup" && score < 3) throw new Error("كلمة المرور ضعيفة — استخدم 8+ أحرف مع أرقام ورموز");
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
@@ -93,12 +96,12 @@ const Auth = () => {
         
 
         <div className="space-y-2">
-          <Label htmlFor="username">اسم المستخدم</Label>
-          <Input id="username" type="text" required value={username} onChange={(e) => setUsername(e.target.value)} placeholder="admin" />
+          <Label htmlFor="username">اسم المستخدم أو البريد الإلكتروني</Label>
+          <Input id="username" type="text" inputMode="email" autoComplete="username" required value={username} onChange={(e) => setUsername(e.target.value)} placeholder="admin@julith.sa" />
         </div>
         <div className="space-y-2">
           <Label htmlFor="password">كلمة المرور</Label>
-          <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
+          <Input id="password" type="password" autoComplete="current-password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
           {mode === "signup" && password.length > 0 && (
             <div className="space-y-1">
               <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
