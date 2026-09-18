@@ -71,6 +71,59 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          branch_id: string | null
+          branch_name: string | null
+          created_at: string
+          customer_name: string | null
+          customer_phone: string | null
+          id: string
+          items: Json
+          note: string | null
+          order_no: number
+          status: string
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          branch_id?: string | null
+          branch_name?: string | null
+          created_at?: string
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: string
+          items?: Json
+          note?: string | null
+          order_no?: number
+          status?: string
+          total?: number
+          updated_at?: string
+        }
+        Update: {
+          branch_id?: string | null
+          branch_name?: string | null
+          created_at?: string
+          customer_name?: string | null
+          customer_phone?: string | null
+          id?: string
+          items?: Json
+          note?: string | null
+          order_no?: number
+          status?: string
+          total?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_branch_id_fkey"
+            columns: ["branch_id"]
+            isOneToOne: false
+            referencedRelation: "branches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product_branches: {
         Row: {
           branch_id: string
