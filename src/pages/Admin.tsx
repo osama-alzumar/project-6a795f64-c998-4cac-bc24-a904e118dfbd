@@ -173,7 +173,8 @@ const Admin = () => {
       setUploadingBranchField(null);
       return;
     }
-    const { error } = await supabase.from("branches").update({ [field]: imageUrl }).eq("id", branchId);
+    const update = field === "image_url" ? { image_url: imageUrl } : { pattern_url: imageUrl };
+    const { error } = await supabase.from("branches").update(update).eq("id", branchId);
     setUploadingBranchField(null);
     if (error) return toast.error(error.message);
     setBranches((prev) => prev.map((branch) => branch.id === branchId ? { ...branch, [field]: imageUrl } : branch));
