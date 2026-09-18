@@ -47,21 +47,17 @@ export const saveOrder = async (params: {
   customerName?: string | null;
   customerPhone?: string | null;
 }) => {
-  const { data, error } = await supabase
-    .from("orders")
-    .insert({
-      items: params.items.map((i) => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
-      total: params.total,
-      branch_id: params.branchId ?? null,
-      branch_name: params.branchName ?? null,
-      customer_name: params.customerName ?? null,
-      customer_phone: params.customerPhone ?? null,
-    })
-    .select("order_no")
-    .single();
+  const { data, error } = await supabase.rpc("place_order", {
+    _items: params.items.map((i) => ({ id: i.id, name: i.name, price: i.price, qty: i.qty })),
+    _total: params.total,
+    _branch_id: params.branchId ?? null,
+    _branch_name: params.branchName ?? null,
+    _customer_name: params.customerName ?? null,
+    _customer_phone: params.customerPhone ?? null,
+  });
   if (error) {
     console.error("saveOrder failed:", error.message);
     return null;
   }
-  return data?.order_no ?? null;
+  return (data as number | null) ?? null;
 };
