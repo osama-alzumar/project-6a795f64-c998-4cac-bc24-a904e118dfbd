@@ -95,7 +95,22 @@ const Index = () => {
     "",
     `الإجمالي: ${cartTotal.toFixed(2)} ر.س`,
   ].join("\n");
-  const whatsappOrderUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderText)}`;
+  // الجوال: فتح تطبيق واتساب مباشرة (بدون المرور على api.whatsapp.com)
+  // الكمبيوتر: فتح واتساب ويب مباشرة (بدون التحويلة عبر wa.me)
+  const isMobileDevice = /Android|iPhone|iPad|iPod|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
+  const whatsappOrderUrl = isMobileDevice
+    ? `whatsapp://send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(orderText)}`
+    : `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(orderText)}`;
+
+  const handleWhatsAppOrder = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (isMobileDevice) {
+      // فتح تطبيق واتساب مباشرة
+      window.location.href = whatsappOrderUrl;
+    } else {
+      window.open(whatsappOrderUrl, "_blank", "noopener,noreferrer");
+    }
+  };
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0);
 
   return (
