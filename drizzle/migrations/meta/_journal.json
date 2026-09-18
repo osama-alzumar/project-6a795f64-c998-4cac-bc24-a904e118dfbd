@@ -8,6 +8,20 @@
       "when": 1789704147478,
       "tag": "0000_seed_julith_menu",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1789707876191,
+      "tag": "0001_create_orders",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789707905764,
+      "tag": "0002_place_order_rpc",
+      "breakpoints": true
     }
   ]
 }

@@ -7,6 +7,7 @@ import julithPattern from "@/assets/julith/julith-pattern-background.jpeg.asset.
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { buildOrderText, openWhatsApp, saveOrder, whatsappUrl } from "@/lib/order";
 
 
 const useScrollReveal = (deps: unknown[] = []) => {
@@ -31,23 +32,31 @@ type Product = {
 };
 
 type CartItem = Product & { qty: number };
+type Branch = { id: string; name: string; sort_order: number };
 
 const Index = () => {
   const [cats, setCats] = useState<Category[]>([]);
   const [prods, setProds] = useState<Product[]>([]);
+  const [branches, setBranches] = useState<Branch[]>([]);
+  const [branchId, setBranchId] = useState<string>("");
+  const [sending, setSending] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [openCart, setOpenCart] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const [{ data: c }, { data: p }] = await Promise.all([
+      const [{ data: c }, { data: p }, { data: b }] = await Promise.all([
         supabase.from("categories").select("*").order("sort_order"),
         supabase.from("products").select("*").eq("is_available", true).order("sort_order"),
+        supabase.from("branches").select("id,name,sort_order").order("sort_order"),
       ]);
       setCats(c ?? []);
       setProds(p ?? []);
+      setBranches(b ?? []);
+      if (b && b.length === 1) setBranchId(b[0].id);
     })();
   }, []);
+
 
   useEffect(() => {
     try {
@@ -85,31 +94,24 @@ const Index = () => {
 
   const cartTotal = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 
-  // رقم واتساب الكاشير — جوليث كافيه
-  const WHATSAPP_NUMBER = "966507074560";
-  const orderLines = cart.map((i) => `• ${i.name} ×${i.qty} — ${(i.price * i.qty).toFixed(2)} ر.س`);
-  const orderText = [
-    "طلب جديد من منيو جوليث:",
-    "",
-    ...orderLines,
-    "",
-    `الإجمالي: ${cartTotal.toFixed(2)} ر.س`,
-  ].join("\n");
-  // الجوال: فتح تطبيق واتساب مباشرة (بدون المرور على api.whatsapp.com)
-  // الكمبيوتر: فتح واتساب ويب مباشرة (بدون التحويلة عبر wa.me)
-  const isMobileDevice = /Android|iPhone|iPad|iPod|IEMobile|Opera Mini|Mobile/i.test(navigator.userAgent);
-  const whatsappOrderUrl = isMobileDevice
-    ? `whatsapp://send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(orderText)}`
-    : `https://web.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(orderText)}`;
+  const selectedBranch = branches.find((b) => b.id === branchId) ?? null;
+  const whatsappOrderUrl = whatsappUrl(
+    buildOrderText(cart, cartTotal, { branchName: selectedBranch?.name })
+  );
 
-  const handleWhatsAppOrder = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleWhatsAppOrder = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    if (isMobileDevice) {
-      // فتح تطبيق واتساب مباشرة
-      window.location.href = whatsappOrderUrl;
-    } else {
-      window.open(whatsappOrderUrl, "_blank", "noopener,noreferrer");
-    }
+    if (sending || cart.length === 0) return;
+    setSending(true);
+    const orderNo = await saveOrder({
+      items: cart,
+      total: cartTotal,
+      branchId: selectedBranch?.id ?? null,
+      branchName: selectedBranch?.name ?? null,
+    });
+    if (!orderNo) toast.error("تعذّر حفظ الطلب، سيُرسل عبر واتساب فقط");
+    openWhatsApp(buildOrderText(cart, cartTotal, { orderNo, branchName: selectedBranch?.name }));
+    setSending(false);
   };
   const cartCount = cart.reduce((sum, i) => sum + i.qty, 0);
 
@@ -363,6 +365,22 @@ const Index = () => {
                   </button>
                 </div>
               ))}
+              {branches.length > 0 && (
+                <div className="pt-3">
+                  <label htmlFor="branch" className="text-sm font-bold">اختر الفرع</label>
+                  <select
+                    id="branch"
+                    value={branchId}
+                    onChange={(e) => setBranchId(e.target.value)}
+                    className="mt-1 w-full rounded-xl border bg-background px-3 py-2 text-sm"
+                  >
+                    <option value="">— اختر الفرع —</option>
+                    {branches.map((b) => (
+                      <option key={b.id} value={b.id}>{b.name}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
               <div className="pt-3 border-t flex items-center justify-between">
                 <span className="font-bold">الإجمالي</span>
                 <span className="font-bold text-olive">{cartTotal.toFixed(2)} ر.س</span>
@@ -370,14 +388,15 @@ const Index = () => {
               <a
                 href={whatsappOrderUrl}
                 onClick={handleWhatsAppOrder}
-                className="mt-3 flex items-center justify-center gap-2 w-full rounded-xl py-3 font-bold text-[hsl(36_50%_97%)] transition-colors"
+                aria-disabled={sending}
+                className={`mt-3 flex items-center justify-center gap-2 w-full rounded-xl py-3 font-bold text-[hsl(36_50%_97%)] transition-colors ${sending ? "opacity-60 pointer-events-none" : ""}`}
                 style={{ background: "#25D366" }}
               >
                 <MessageCircle className="w-5 h-5" />
-                أرسل الطلب عبر واتساب
+                {sending ? "جارٍ الإرسال…" : "أرسل الطلب عبر واتساب"}
               </a>
               <p className="text-center text-xs text-muted-foreground pt-2">
-                يُرسل طلبك مباشرة إلى واتساب الكاشير
+                يُسجَّل الطلب لدى الكاشير ويُفتح على واتساب مباشرة
               </p>
             </div>
           )}
