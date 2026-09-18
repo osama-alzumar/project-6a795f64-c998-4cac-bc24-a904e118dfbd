@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Plus, Instagram, ShoppingBag, Trash2, Minus, Gift } from "lucide-react";
 import heroCup from "@/assets/julith/flat-white.jpg.asset.json";
 import dripLogo from "@/assets/julith/julith-logo.jpg.asset.json";
+import julithPattern from "@/assets/julith/julith-pattern-background.jpeg.asset.json";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
@@ -93,6 +94,11 @@ const Index = () => {
         <link rel="canonical" href="/" />
       </Helmet>
       <div className="min-h-screen text-foreground overflow-x-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none fixed inset-0 z-[5] bg-repeat bg-[length:440px_440px] opacity-[0.045] mix-blend-multiply"
+          style={{ backgroundImage: `url(${julithPattern.url})` }}
+        />
         {/* NAV */}
         <header className="absolute top-0 inset-x-0 z-30">
           <div className="container flex items-center justify-between py-5">
@@ -124,7 +130,7 @@ const Index = () => {
         </DrawerTrigger>
 
         {/* HERO */}
-        <section className="relative min-h-[100svh] flex items-center pt-24 pb-16 overflow-hidden">
+        <section className="relative z-10 min-h-[100svh] flex items-center pt-24 pb-16 overflow-hidden">
           <div className="absolute inset-0 -z-10">
             <div className="absolute inset-0 bg-gradient-to-b from-[hsl(36_50%_97%)] via-[hsl(34_45%_93%)] to-[hsl(30_40%_87%)]" />
             <div className="absolute -top-20 -left-20 w-[420px] h-[420px] rounded-full bg-[hsl(22_45%_28%)]/10 blur-3xl" />
@@ -180,7 +186,7 @@ const Index = () => {
         </section>
 
         {/* MENU */}
-        <section id="menu" className="relative py-20 md:py-28">
+        <section id="menu" className="relative z-10 py-20 md:py-28">
           <div className="container">
             <div className="text-center mb-12 reveal">
               <p className="font-latin tracking-[0.4em] text-xs text-caramel mb-3">M E N U</p>
