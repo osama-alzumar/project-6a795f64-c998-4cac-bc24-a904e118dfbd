@@ -10,6 +10,7 @@ import Admin from "./pages/Admin.tsx";
 import DevStats from "./pages/DevStats.tsx";
 import Orders from "./pages/Orders.tsx";
 import MobileMenu from "./pages/MobileMenu.tsx";
+import Sales from "./pages/Sales.tsx";
 
 const queryClient = new QueryClient();
 
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/sales" element={<Sales />} />
           <Route path="/m" element={<MobileMenu />} />
           <Route path="/osama-stats-7549712" element={<DevStats />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
