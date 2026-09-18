@@ -190,7 +190,7 @@ const Index = () => {
                 بطبقته الذهبية المقرمشة.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start reveal">
-                <a href="https://rasid.pro/join/dd/register" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: 'var(--gradient-caramel)' }}>
+                <a href="https://easymenu.site/loyalty-wallet/Julith/branch/CODE1" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ background: 'var(--gradient-caramel)' }}>
                   <Gift className="w-4 h-4" /> نظام الولاء
                 </a>
                 <a href="tel:0559170464" className="btn-primary" style={{ background: 'transparent', color: 'hsl(var(--olive))', border: '2px solid hsl(var(--olive))', boxShadow: 'none' }}>
