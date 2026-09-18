@@ -58,17 +58,25 @@ const OrdersPanel = () => {
     };
   }, [load]);
 
+  const STATUS_LABEL: Record<string, string> = {
+    new: "بانتظار الرد",
+    answered: "تم الرد",
+    delivered: "تم التسليم",
+    no_show: "لم يحضر العميل",
+  };
+
   const setStatus = async (id: string, status: string) => {
     const { error } = await supabase.from("orders").update({ status }).eq("id", id);
     if (error) toast.error("تعذّر تحديث الحالة");
     else {
       setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, status } : o)));
-      toast.success(status === "answered" ? "تم وضع علامة: تم الرد" : "أُعيد الطلب لقائمة الانتظار");
+      toast.success(`تم التحديث: ${STATUS_LABEL[status] ?? status}`);
     }
   };
 
-  const pending = orders.filter((o) => o.status !== "answered");
-  const done = orders.filter((o) => o.status === "answered");
+  const pending = orders.filter((o) => o.status === "new" || o.status === "answered");
+  const delivered = orders.filter((o) => o.status === "delivered");
+  const noShow = orders.filter((o) => o.status === "no_show");
 
   const Card = ({ o }: { o: Order }) => (
     <article className="rounded-2xl border bg-card p-4 space-y-3">
@@ -84,22 +92,38 @@ const OrdersPanel = () => {
             </span>
           </p>
         </div>
-        <span className="font-bold text-olive whitespace-nowrap">{o.total.toFixed(2)} ر.س</span>
+        <div className="text-left shrink-0">
+          <span className="font-bold text-olive whitespace-nowrap block">{o.total.toFixed(2)} ر.س</span>
+          <span className="text-xs text-muted-foreground">{STATUS_LABEL[o.status] ?? o.status}</span>
+        </div>
       </div>
       <ul className="text-sm text-muted-foreground space-y-1">
         {o.items.map((i, idx) => (
           <li key={`${o.id}-${idx}`}>• {i.name} ×{i.qty}</li>
         ))}
       </ul>
-      {o.status === "answered" ? (
-        <Button variant="outline" size="sm" onClick={() => setStatus(o.id, "new")}>
-          <RefreshCw className="w-4 h-4" /> إرجاع للانتظار
-        </Button>
-      ) : (
-        <Button size="sm" onClick={() => setStatus(o.id, "answered")}>
-          <Check className="w-4 h-4" /> تم الرد على العميل
-        </Button>
-      )}
+      <div className="flex flex-wrap gap-2">
+        {o.status === "new" && (
+          <Button size="sm" onClick={() => setStatus(o.id, "answered")}>
+            <Check className="w-4 h-4" /> تم الرد على العميل
+          </Button>
+        )}
+        {(o.status === "answered" || o.status === "new") && (
+          <Button size="sm" variant="secondary" onClick={() => setStatus(o.id, "delivered")}>
+            <PackageCheck className="w-4 h-4" /> تم التسليم
+          </Button>
+        )}
+        {o.status === "answered" && (
+          <Button size="sm" variant="destructive" onClick={() => setStatus(o.id, "no_show")}>
+            <UserX className="w-4 h-4" /> لم يحضر العميل
+          </Button>
+        )}
+        {o.status !== "new" && (
+          <Button variant="outline" size="sm" onClick={() => setStatus(o.id, "new")}>
+            <RefreshCw className="w-4 h-4" /> إرجاع للانتظار
+          </Button>
+        )}
+      </div>
     </article>
   );
 
@@ -117,19 +141,33 @@ const OrdersPanel = () => {
       ) : (
         <div className="space-y-8">
           <section>
-            <h3 className="font-bold mb-3">لم يُرد عليها ({pending.length})</h3>
+            <h3 className="font-bold mb-3">قيد المتابعة ({pending.length})</h3>
             <div className="space-y-3">
               {pending.length === 0 ? (
-                <p className="text-sm text-muted-foreground">تم الرد على كل الطلبات ✅</p>
+                <p className="text-sm text-muted-foreground">لا توجد طلبات قيد المتابعة ✅</p>
               ) : (
                 pending.map((o) => <Card key={o.id} o={o} />)
               )}
             </div>
           </section>
           <section>
-            <h3 className="font-bold mb-3">تم الرد ({done.length})</h3>
+            <h3 className="font-bold mb-3">تم التسليم ({delivered.length})</h3>
             <div className="space-y-3 opacity-70">
-              {done.map((o) => <Card key={o.id} o={o} />)}
+              {delivered.length === 0 ? (
+                <p className="text-sm text-muted-foreground">لا توجد طلبات مسلّمة بعد</p>
+              ) : (
+                delivered.map((o) => <Card key={o.id} o={o} />)
+              )}
+            </div>
+          </section>
+          <section>
+            <h3 className="font-bold mb-3">لم يحضر العميل ({noShow.length})</h3>
+            <div className="space-y-3 opacity-70">
+              {noShow.length === 0 ? (
+                <p className="text-sm text-muted-foreground">لا يوجد</p>
+              ) : (
+                noShow.map((o) => <Card key={o.id} o={o} />)
+              )}
             </div>
           </section>
         </div>
