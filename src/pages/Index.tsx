@@ -7,6 +7,7 @@ import julithPattern from "@/assets/julith/julith-pattern-background.jpeg.asset.
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+import { buildOrderText, openWhatsApp, saveOrder, whatsappUrl } from "@/lib/order";
 
 
 const useScrollReveal = (deps: unknown[] = []) => {
@@ -31,23 +32,31 @@ type Product = {
 };
 
 type CartItem = Product & { qty: number };
+type Branch = { id: string; name: string; sort_order: number };
 
 const Index = () => {
   const [cats, setCats] = useState<Category[]>([]);
   const [prods, setProds] = useState<Product[]>([]);
+  const [branches, setBranches] = useState<Branch[]>([]);
+  const [branchId, setBranchId] = useState<string>("");
+  const [sending, setSending] = useState(false);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [openCart, setOpenCart] = useState(false);
 
   useEffect(() => {
     (async () => {
-      const [{ data: c }, { data: p }] = await Promise.all([
+      const [{ data: c }, { data: p }, { data: b }] = await Promise.all([
         supabase.from("categories").select("*").order("sort_order"),
         supabase.from("products").select("*").eq("is_available", true).order("sort_order"),
+        supabase.from("branches").select("id,name,sort_order").order("sort_order"),
       ]);
       setCats(c ?? []);
       setProds(p ?? []);
+      setBranches(b ?? []);
+      if (b && b.length === 1) setBranchId(b[0].id);
     })();
   }, []);
+
 
   useEffect(() => {
     try {
