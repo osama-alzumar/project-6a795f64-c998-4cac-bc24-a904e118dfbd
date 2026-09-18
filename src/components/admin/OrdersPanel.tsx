@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Check, RefreshCw, Clock, MapPin } from "lucide-react";
+import { Check, RefreshCw, Clock, MapPin, PackageCheck, UserX } from "lucide-react";
 
 type OrderItem = { id: string; name: string; price: number; qty: number };
 type Order = {
