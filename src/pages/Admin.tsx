@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import OrdersPanel from "@/components/admin/OrdersPanel";
+import SalesPanel from "@/components/admin/SalesPanel";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -31,6 +34,9 @@ type Branch = {
 
 const Admin = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const initialTab = tabParam === "orders" || tabParam === "sales" ? tabParam : "menu";
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
@@ -341,6 +347,22 @@ const Admin = () => {
             </Button>
           </div>
         </header>
+
+        <Tabs defaultValue={initialTab} className="w-full">
+          <TabsList className="w-full grid grid-cols-3">
+            <TabsTrigger value="menu">المنيو</TabsTrigger>
+            <TabsTrigger value="orders">طلبات اليوم</TabsTrigger>
+            <TabsTrigger value="sales">المبيعات</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="orders" className="mt-6">
+            <OrdersPanel />
+          </TabsContent>
+          <TabsContent value="sales" className="mt-6">
+            <SalesPanel />
+          </TabsContent>
+
+          <TabsContent value="menu" className="mt-6 space-y-6 sm:space-y-8">
 
         {/* Categories */}
         <section className="bg-card border border-border rounded-2xl p-4 sm:p-6 space-y-4">
@@ -707,6 +729,8 @@ const Admin = () => {
             ))}
           </div>
         </section>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
     </>
