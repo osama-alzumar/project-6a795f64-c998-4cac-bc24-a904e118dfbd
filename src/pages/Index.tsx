@@ -369,8 +369,7 @@ const Index = () => {
               </div>
               <a
                 href={whatsappOrderUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={handleWhatsAppOrder}
                 className="mt-3 flex items-center justify-center gap-2 w-full rounded-xl py-3 font-bold text-[hsl(36_50%_97%)] transition-colors"
                 style={{ background: "#25D366" }}
               >
