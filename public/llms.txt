@@ -1,0 +1,8 @@
+# Drip Story
+
+> مقهى متخصص بالقهوة والحلويات بطابع مختلف — Specialty coffee and desserts café in Saudi Arabia.
+
+Drip Story is a specialty café serving hand-crafted coffee (V60, hot and iced), matcha, mojitos, and a curated selection of desserts including tiramisu, San Sebastian cheesecake, kinder pudding, and more. Prices are listed in Saudi Riyal (SAR).
+
+## Pages
+- [Home & Menu](/): Full menu with categories, product photos, and prices in SAR.
