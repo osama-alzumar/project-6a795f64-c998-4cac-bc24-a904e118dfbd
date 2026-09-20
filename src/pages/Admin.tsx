@@ -291,24 +291,14 @@ const Admin = () => {
   }
 
   if (!isAdmin) {
-    const claimAdmin = async () => {
-      const { data } = await supabase.rpc("claim_first_admin");
-      if (data) {
-        toast.success("تم منح صلاحية الأدمن");
-        setIsAdmin(true);
-      } else {
-        toast.error("لا يمكن منح الصلاحية — يوجد أدمن مسبقاً");
-      }
-    };
     return (
       <div className="min-h-screen flex items-center justify-center bg-background px-4">
         <div className="max-w-md text-center bg-card border border-border rounded-2xl p-8 space-y-4">
           <h2 className="font-display text-2xl">لا تملك صلاحية الإدارة</h2>
           <p className="text-muted-foreground text-sm">
-            تواصل مع المالك لإضافتك كأدمن، أو اضغط الزر أدناه.
+            تواصل مع المالك لإضافتك كأدمن.
           </p>
           <div className="flex gap-2 justify-center">
-            <Button onClick={claimAdmin} className="bg-gold text-cream">احصل على صلاحية الأدمن</Button>
             <Button onClick={logout} variant="outline">تسجيل الخروج</Button>
           </div>
         </div>
