@@ -263,7 +263,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      claim_first_admin: { Args: never; Returns: boolean }
       place_order: {
         Args: {
           _branch_id?: string
