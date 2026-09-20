@@ -80,11 +80,7 @@ const Admin = () => {
         .from("user_roles")
         .select("role")
         .eq("user_id", uid);
-      let admin = !!roles?.some((r) => r.role === "admin");
-      if (!admin) {
-        const { data: claimed } = await supabase.rpc("claim_first_admin");
-        if (claimed) admin = true;
-      }
+      const admin = !!roles?.some((r) => r.role === "admin");
       setIsAdmin(admin);
       await loadData();
       setLoading(false);
