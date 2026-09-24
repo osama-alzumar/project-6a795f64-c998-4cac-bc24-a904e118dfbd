@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { RefreshCw, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
+import DomainDiagnosis from "./DomainDiagnosis";
 
 const DOMAIN = "julith.shop";
 const EXPECTED_IP = "185.158.133.1";
@@ -118,6 +119,20 @@ export default function DomainPanel() {
           خوادم الأسماء: <span dir="ltr" className="font-mono">{nameservers.length ? nameservers.join(", ") : "لا توجد"}</span>
         </p>
       </div>
+
+      <DomainDiagnosis
+        defaultDomain={DOMAIN}
+        autoReport={
+          checks.length
+            ? [
+                `الخطأ في المتصفح: ${allOk ? "لا يوجد" : "DNS_PROBE_FINISHED_NXDOMAIN"}`,
+                `خوادم الأسماء (NS): ${nameservers.join(", ") || "لا توجد"}`,
+                ...checks.map((c) => `${c.type} ${c.name}: المطلوب ${c.expected} — الموجود ${c.observed.join(", ") || "لا يوجد"}`),
+                "النطاق مشترى من Lovable ومضبوط كنطاق رئيسي",
+              ].join("\n")
+            : undefined
+        }
+      />
     </div>
   );
 }
