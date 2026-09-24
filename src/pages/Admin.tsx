@@ -3,6 +3,7 @@ import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OrdersPanel from "@/components/admin/OrdersPanel";
 import SalesPanel from "@/components/admin/SalesPanel";
+import DomainPanel from "@/components/admin/DomainPanel";
 import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -335,10 +336,11 @@ const Admin = () => {
         </header>
 
         <Tabs defaultValue={initialTab} className="w-full">
-          <TabsList className="w-full grid grid-cols-3">
+          <TabsList className="w-full grid grid-cols-4">
             <TabsTrigger value="menu">المنيو</TabsTrigger>
             <TabsTrigger value="orders">طلبات اليوم</TabsTrigger>
             <TabsTrigger value="sales">المبيعات</TabsTrigger>
+            <TabsTrigger value="settings">الإعدادات</TabsTrigger>
           </TabsList>
 
           <TabsContent value="orders" className="mt-6">
@@ -346,6 +348,9 @@ const Admin = () => {
           </TabsContent>
           <TabsContent value="sales" className="mt-6">
             <SalesPanel />
+          </TabsContent>
+          <TabsContent value="settings" className="mt-6">
+            <DomainPanel />
           </TabsContent>
 
           <TabsContent value="menu" className="mt-6 space-y-6 sm:space-y-8">
