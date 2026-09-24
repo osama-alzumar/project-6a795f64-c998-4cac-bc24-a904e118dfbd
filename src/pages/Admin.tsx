@@ -37,7 +37,7 @@ const Admin = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const tabParam = searchParams.get("tab");
-  const initialTab = tabParam === "orders" || tabParam === "sales" ? tabParam : "menu";
+  const initialTab = tabParam === "orders" || tabParam === "sales" || tabParam === "settings" ? tabParam : "menu";
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
